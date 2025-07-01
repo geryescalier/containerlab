@@ -1,0 +1,20 @@
+#Gery: con este yml tendras lo necesario para desplegar tu primer contenedor con openwrt en container lab
+# fuente de docker: https://hub.docker.com/r/mikma/openwrt
+# == Datos para acceso a openwrt ==
+# usuario: root
+# pasword: openwrtpassword
+
+name: openwrt00
+topology:
+  nodes:
+    openwrt:
+      kind: openwrt
+      image: mikma/openwrt:latest
+      mgmt-ipv4: 172.20.20.22                             # optional
+      ports:
+        - 8080:80                                         # required for LuCI web interface (HTTP); adjust host ports if running multiple nodes or based on your setup
+        - 8443:443                                        # required for LuCI web interface (HTTPS); adjust host ports if running multiple nodes or based on your setup
+        - 2222:22                                         # Map host port 2222 to container port 22 for SSH
+      env:
+        PACKET_REPOSITORY_DNS_SERVER: 8.8.8.8             # default 8.8.8.8
+    
